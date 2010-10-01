@@ -4,7 +4,7 @@ during the KHelg 2010:3 at Hemmeslöv Herrgård.
 Open the index.html file in a (modern) browser to start the game. This is
 what you do:
 
- git clone git@github.com:ulsa/html5-canvas.git
+ git clone git://github.com/ulsa/html5-canvas.git
  cd html5-canvas
  open src/index.html
 
