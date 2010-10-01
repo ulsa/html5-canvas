@@ -18,6 +18,7 @@ var jayFront = new Image();
 var jayRight = new Image();
 var jayLeft = new Image();
 var ctx;
+var balls = new Array();
 
 function draw() {
 	var canvas = document.getElementById('tutorial');  
@@ -27,6 +28,14 @@ function draw() {
 		jayRight.src = 'jay_right.png'
 		jayLeft.src = 'jay_left.png'
 		window.setInterval("update()", 1000/24);
+    }
+    for (var i = 0; i < 5; i++) { 
+        var ball = {};
+	    ball.x = 850 + Math.floor(Math.random() * 100);
+	    ball.y = Math.floor(Math.random() * 560) + 20;
+	    ball.speed = Math.random() * 4 + 1;
+	    ball.size = Math.floor(Math.random() * 15) + 15;
+	    balls[i] = ball;
     }
 }
 
@@ -53,9 +62,28 @@ function update() {
 	x += accx;
 	y += accy;
 
+	for (i in balls) {
+		balls[i].x = balls[i].x - balls[i].speed;
+		if (balls[i].x < -50) {
+			balls[i].x = 850;
+		}
+	}
+	
 	ctx.fillStyle = "rgb(255,255,255)";
 	ctx.fillRect(0, 0, 800, 600);
 	ctx.drawImage(jayCurrent, x, y);
+	
+	ctx.fillStyle = "rgb(0,0,0)";
+	for (i in balls) {
+		ctx.beginPath();
+		ctx.arc(balls[i].x, balls[i].y, balls[i].size, 0, Math.PI*2, true);
+		ctx.closePath();
+		ctx.fill();
+	}
+}
+
+function drawBall() {
+	
 }
 
 function onKeyPressed(evt) {
