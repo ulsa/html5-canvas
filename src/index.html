@@ -19,9 +19,12 @@ var jayRight = new Image();
 var jayLeft = new Image();
 var ctx;
 var balls = new Array();
+var jayCurrent;
+var bgColor = "rgb(255,255,255)";
+var killed = false;
 
 function draw() {
-	var canvas = document.getElementById('tutorial');  
+	var canvas = document.getElementById('game');  
 	if (canvas.getContext){  
 		ctx = canvas.getContext('2d');
 		jayFront.src = 'jay_front.png'
@@ -40,7 +43,67 @@ function draw() {
 }
 
 function update() {
-	var jayCurrent = jayFront;
+	if (!killed) {
+		moveJay();
+		moveBalls();
+
+		drawBackground();
+		drawJay();
+		drawBalls();	
+	} else {
+		drawBackground();
+		drawJay();
+		drawGameOver();
+	}
+}
+
+function drawGameOver() {
+	ctx.font = "80px sans-serif";
+	ctx.fillStyle = "rgb(234,15,5)";
+	ctx.fillText("Game Over!", 200, 280);
+}
+
+function drawBackground() {
+	ctx.fillStyle = bgColor;
+	ctx.fillRect(0, 0, 800, 600);
+}
+
+function drawJay() {
+	ctx.drawImage(jayCurrent, x, y);
+}
+
+function drawBalls() {
+	ctx.fillStyle = "rgb(0,0,0)";
+	for (i in balls) {
+		ctx.beginPath();
+		ctx.arc(balls[i].x, balls[i].y, balls[i].size, 0, Math.PI*2, true);
+		ctx.closePath();
+		ctx.fill();
+	}
+}
+
+function moveBalls() {
+	for (i in balls) {
+		balls[i].x = balls[i].x - balls[i].speed;
+		var ballx = balls[i].x;
+		var bally = balls[i].y;
+
+		var jayCenterX = x + 50;
+		var jayCenterY = y + 50;
+		var dist = Math.sqrt((ballx - jayCenterX) * (ballx - jayCenterX) + (bally - jayCenterY) * (bally - jayCenterY));
+		if (dist < (balls[i].size + 30)) {
+			jayCurrent = jayFront;
+			killed = true;
+		}
+		
+		if (balls[i].x < -50) {
+			balls[i].x = 850;
+		}
+	}
+}
+
+function moveJay() {
+	jayCurrent = jayFront;
 	if (input.right) {
 		accx = accx + 1;
 		jayCurrent = jayRight;
@@ -61,29 +124,6 @@ function update() {
 
 	x += accx;
 	y += accy;
-
-	for (i in balls) {
-		balls[i].x = balls[i].x - balls[i].speed;
-		if (balls[i].x < -50) {
-			balls[i].x = 850;
-		}
-	}
-	
-	ctx.fillStyle = "rgb(255,255,255)";
-	ctx.fillRect(0, 0, 800, 600);
-	ctx.drawImage(jayCurrent, x, y);
-	
-	ctx.fillStyle = "rgb(0,0,0)";
-	for (i in balls) {
-		ctx.beginPath();
-		ctx.arc(balls[i].x, balls[i].y, balls[i].size, 0, Math.PI*2, true);
-		ctx.closePath();
-		ctx.fill();
-	}
-}
-
-function drawBall() {
-	
 }
 
 function onKeyPressed(evt) {
@@ -133,6 +173,6 @@ canvas {
 </head>
 <body onload="draw();" onkeydown="onKeyPressed(event)"
 	onkeyup="onKeyRelease(event)">
-<canvas id="tutorial" width="800" height="600"></canvas>
+<canvas id="game" width="800" height="600"></canvas>
 </body>
 </html>
