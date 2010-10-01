@@ -1,3 +1,13 @@
-This is a K-spike for demonstrating the HTML5 Canvas object.
+This is a K-spike for demonstrating the HTML5 Canvas object. It was written
+during the KHelg 2010:3 at Hemmeslöv Herrgård.
 
+Open the index.html file in a (modern) browser to start the game. This is
+what you do:
+
+ git clone git@github.com:ulsa/html5-canvas.git
+ cd html5-canvas
+ open src/index.html
+
+-- 
 Magnus Robertsson, Mattias Arthursson, Ulrik Sandberg
+Team Java, Jayway
