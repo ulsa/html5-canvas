@@ -1,0 +1,93 @@
+<html>
+<head>
+<script type="text/javascript">
+var KEY = { D: 68, W: 87, A: 65, S:83, RIGHT:39, UP:38, LEFT:37, DOWN:40, Q:81 };
+var input = {
+	right: false,
+	up: false,
+	left: false,
+	down: false,
+	quit: false
+};
+
+var x = 50;
+var y = 50;
+var jayFront = new Image();
+var jayRight = new Image();
+var jayLeft = new Image();
+var ctx;
+
+function draw() {
+	var canvas = document.getElementById('tutorial');  
+	if (canvas.getContext){  
+		ctx = canvas.getContext('2d');
+		jayFront.src = 'jay_front.png'
+		jayRight.src = 'jay_right.png'
+		jayLeft.src = 'jay_left.png'
+		window.setInterval("update()", 1000/24);
+    }
+}
+
+function update() {
+	var jayCurrent = jayFront;
+	if (input.right) {
+		x = x + 1;
+		jayCurrent = jayRight;
+	}
+	if (input.left) {
+		x = x - 1;
+		jayCurrent = jayLeft;
+	}
+	ctx.drawImage(jayCurrent, x, y);
+}
+
+function onKeyPressed(evt) {
+	var code = evt.keyCode;
+	switch(code) {
+		case KEY.RIGHT:
+		case KEY.D: input.right = true; break;
+		
+		case KEY.UP:
+		case KEY.W: input.up = true; break;
+		
+		case KEY.LEFT:
+		case KEY.A: input.left = true; break;
+		
+		case KEY.DOWN: 
+		case KEY.S: input.down = true; break;
+		
+		case KEY.Q: input.quit = true; break;
+	}}
+
+function onKeyRelease(evt) {
+	var code = evt.keyCode;
+	switch(code) {
+		case KEY.RIGHT:
+		case KEY.D: input.right = false; break;
+		
+		case KEY.UP:
+		case KEY.W: input.up = false; break;
+		
+		case KEY.LEFT:
+		case KEY.A: input.left = false; break;
+		
+		case KEY.DOWN:
+		case KEY.S: input.down = false; break;
+		
+		case KEY.Q: break;
+		
+		default: trace('unrecognized key code: ' +code); break;
+	}	
+}
+</script>
+<style type="text/css">
+canvas {
+	border: 1px solid black;
+}
+</style>
+</head>
+<body onload="draw();" onkeydown="onKeyPressed(event)"
+	onkeyup="onKeyRelease(event)">
+<canvas id="tutorial" width="800" height="600"></canvas>
+</body>
+</html>
