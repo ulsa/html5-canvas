@@ -1,5 +1,5 @@
-This is a K-spike for demonstrating the HTML5 Canvas object. It was written
-during the KHelg 2010:3 at Hemmeslöv Herrgård.
+This is a KSpike for demonstrating the HTML5 Canvas object. It was written
+during 90 minutes at KHelg (Competence Weekend) 2010:3 at Hemmeslöv Herrgård.
 
 Open the index.html file in a (modern) browser to start the game. This is
 what you do:
@@ -8,6 +8,7 @@ what you do:
  cd html5-canvas
  open src/index.html
 
+Use the arrow keys to move your Jay, but avoid getting hit by evil balls.
 -- 
 Magnus Robertsson, Mattias Arthursson, Ulrik Sandberg
 Team Java, Jayway
